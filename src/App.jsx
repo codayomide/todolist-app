@@ -1,7 +1,7 @@
 import InputBar from "./todoList/InputBar";
 import ThemeBtn from "./header/ThemeBtn";
 import ListContainer from "./todoList/ListContainer";
-import Filter from "./todoList/Filter";
+import FilterMobile from "./todoList/FilterMobile";
 
 export default function App() {
   return (
@@ -19,7 +19,7 @@ export default function App() {
       <div className="w-[90%] sm:w-[60%] md:w-[55%] xl:w-[45%] 2xl:w-[35%] flex items-center justify-center relative">
         <main className="bg-transparent w-full h-full flex flex-col items-center relative -top-9">
           <ListContainer />
-          <Filter />
+          <FilterMobile />
           <p className="text-lmDarkGrayBlue mt-12">Drag and drop to reorder list</p>
         </main>
       </div>

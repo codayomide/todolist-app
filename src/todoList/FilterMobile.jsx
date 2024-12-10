@@ -1,4 +1,4 @@
-const Filter = () => {
+const FilterMobile = () => {
   return (
     <div className="lg:hidden bg-white w-full shadow-xl rounded-md p-3 flex justify-center">
       <div className="w-[60%] sm:w-[55%] md:w-[50%] lg:w-[45%] font-medium flex justify-between">
@@ -10,4 +10,4 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default FilterMobile;

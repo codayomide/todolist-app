@@ -1,5 +1,6 @@
 import crossIcon from "../assets/images/icon-cross.svg";
 import checkIcon from "../assets/images/icon-check.svg";
+import FilterDesktop from "./FilterDesktop";
 
 const ListContainer = () => {
   return (
@@ -96,8 +97,9 @@ const ListContainer = () => {
         </li>
       </ul>
 
-      <div className="text-lmDarkGrayBlue text-sm flex justify-between px-4 py-5">
+      <div className="text-lmDarkGrayBlue text-sm font-medium flex justify-between px-4 py-5">
         <p>5 items left</p>
+        <FilterDesktop />
         <button>Clear Completed</button>
       </div>
     </div>
