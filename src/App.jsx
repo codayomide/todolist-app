@@ -17,10 +17,10 @@ export default function App() {
       </header>
 
       <div className="w-[90%] sm:w-[60%] md:w-[55%] xl:w-[45%] 2xl:w-[35%] flex items-center justify-center relative">
-        <main className="bg-transparent w-full h-full flex flex-col items-center relative -top-7">
+        <main className="bg-transparent w-full h-full flex flex-col items-center relative -top-9">
           <ListContainer />
           <Filter />
-          <p className="text-lmDarkGrayBlue mt-12 mb-4">Drag and drop to reorder list</p>
+          <p className="text-lmDarkGrayBlue mt-12">Drag and drop to reorder list</p>
         </main>
       </div>
     </div>

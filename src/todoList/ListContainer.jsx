@@ -3,7 +3,7 @@ import checkIcon from "../assets/images/icon-check.svg";
 
 const ListContainer = () => {
   return (
-    <div className="w-full bg-white shadow-xl rounded-md mb-6">
+    <div className="w-full bg-white shadow-xl rounded-md mb-6 lg:mb-2">
       <ul className="w-full h-fit">
         <li className="flex justify-between items-center border-b border-lmLightGrayBlue px-4 py-4">
           <span className="flex items-center">
@@ -15,7 +15,7 @@ const ListContainer = () => {
             </p>
           </span>
 
-          <button>
+          <button className="lg:hidden">
             <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
           </button>
         </li>
@@ -30,7 +30,7 @@ const ListContainer = () => {
             </p>
           </span>
 
-          <button>
+          <button className="lg:hidden">
             <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
           </button>
         </li>
@@ -45,7 +45,7 @@ const ListContainer = () => {
             </p>
           </span>
 
-          <button>
+          <button className="lg:hidden">
             <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
           </button>
         </li>
@@ -60,7 +60,7 @@ const ListContainer = () => {
             </p>
           </span>
 
-          <button>
+          <button className="lg:hidden">
             <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
           </button>
         </li>
@@ -75,7 +75,7 @@ const ListContainer = () => {
             </p>
           </span>
 
-          <button>
+          <button className="lg:hidden">
             <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
           </button>
         </li>
@@ -90,7 +90,7 @@ const ListContainer = () => {
             </p>
           </span>
 
-          <button>
+          <button className="lg:hidden">
             <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
           </button>
         </li>
