@@ -1,0 +1,59 @@
+{
+  "checkList": [
+    {
+      "position": 0,
+      "text": "Complete online JavaScript Course",
+      "isChecked": false
+    },
+    {
+      "position": 1,
+      "text": "Buy an apple",
+      "isChecked": false
+    },
+    {
+      "position": 2,
+      "text": "Write in my journal",
+      "isChecked": true
+    },
+    {
+      "position": 3,
+      "text": "Study my bible",
+      "isChecked": true
+    },
+    {
+      "position": 4,
+      "text": "Read Atomic habits",
+      "isChecked": false
+    },
+    {
+      "position": 5,
+      "text": "Call my mum",
+      "isChecked": false
+    },
+    {
+      "position": 6,
+      "text": "Date with my babe",
+      "isChecked": false
+    },
+    {
+      "position": 7,
+      "text": "Listen to a sermon",
+      "isChecked": false
+    },
+    {
+      "position": 8,
+      "text": "Take a walk",
+      "isChecked": false
+    },
+    {
+      "position": 10,
+      "text": "Go to the gym",
+      "isChecked": true
+    },
+    {
+      "position": 11,
+      "text": "Call my boss",
+      "isChecked": false
+    }
+  ]
+}
