@@ -2,14 +2,89 @@ import InputBar from "./todoList/InputBar";
 import ThemeBtn from "./header/ThemeBtn";
 import ListContainer from "./todoList/ListContainer";
 import FilterMobile from "./todoList/FilterMobile";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import ThemeContext from "./utils/ThemeContext";
 
 export default function App() {
   const { theme } = useContext(ThemeContext);
 
+  const [checkList, setCheckList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetch(`http://localhost:3000/checkList`)
+          .then((res) => res.json())
+          .then((data) => {
+            setCheckList(data.reverse());
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const addItem = async (text) => {
+    const newItem = { text, isChecked: false };
+
+    try {
+      const response = await fetch("http://localhost:3000/checkList", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newItem),
+      });
+
+      if (response.ok) {
+        const updatedResponse = await fetch("http://localhost:3000/checkList");
+        const updatedData = await updatedResponse.json();
+        setCheckList(updatedData.reverse());
+      } else {
+        console.error("Failed to add item");
+      }
+    } catch (error) {
+      console.log("Error adding item: ", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`http://localhost:3000/checkList/${id}`, {
+        method: "DELETE",
+      });
+
+      setCheckList((prevList) => prevList.filter((item) => item.id !== id));
+    } catch (error) {
+      console.log("Error deleting item: ", error);
+    }
+  };
+
+  const updateStatus = async (id, isChecked) => {
+    try {
+      const response = await fetch(`http://localhost:3000/checkList/${id}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ isChecked: !isChecked }),
+      });
+
+      if (response.ok) {
+        setCheckList((prevList) =>
+          prevList.map((item) =>
+            item.id === id ? { ...item, isChecked: !isChecked } : item
+          )
+        );
+      }
+    } catch (error) {
+      console.log("Error updating item: ", error);
+    }
+  };
+
   return (
-    <div className={`${theme == "light" ? "bg-white" : "bg-dmVeryBlue"} min-h-screen w-full flex flex-col items-center`}>
+    <div
+      className={`${
+        theme == "light" ? "bg-white" : "bg-dmVeryBlue"
+      } min-h-screen w-full flex flex-col items-center`}
+    >
       <header
         className={`${
           theme == "light"
@@ -24,13 +99,17 @@ export default function App() {
             </h1>
             <ThemeBtn />
           </div>
-          <InputBar />
+          <InputBar addItem={addItem} />
         </div>
       </header>
 
       <div className="w-[90%] sm:w-[60%] md:w-[55%] xl:w-[45%] 2xl:w-[35%] flex items-center justify-center relative">
         <main className="bg-transparent w-full h-full flex flex-col items-center relative -top-9">
-          <ListContainer />
+          <ListContainer
+            items={checkList}
+            deleteEvent={handleDelete}
+            handleCheckedStatus={updateStatus}
+          />
           <FilterMobile />
           <p className="text-lmDarkGrayBlue mt-12">
             Drag and drop to reorder list

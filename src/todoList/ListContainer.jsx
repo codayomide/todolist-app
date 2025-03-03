@@ -2,26 +2,10 @@ import crossIcon from "../assets/images/icon-cross.svg";
 import checkIcon from "../assets/images/icon-check.svg";
 import FilterDesktop from "./FilterDesktop";
 import ThemeContext from "../utils/ThemeContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
-const ListContainer = () => {
+const ListContainer = ({ items, deleteEvent, handleCheckedStatus }) => {
   const { theme } = useContext(ThemeContext);
-  const [checkList, setCheckList] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await fetch(`http://localhost:3000/checkList`)
-          .then((res) => res.json())
-          .then((data) => {
-            setCheckList(data);
-          });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <div
@@ -34,7 +18,7 @@ const ListContainer = () => {
           theme == "light" ? "text-dmVeryDarkGrayBlue" : "text-white"
         } w-full h-fit`}
       >
-        {checkList.map((task) => (
+        {items.map((task) => (
           <li
             key={task.id}
             className={`flex justify-between items-center border-b px-4 py-4 ${
@@ -50,6 +34,7 @@ const ListContainer = () => {
                     ? "border-lmVeryLightGray"
                     : "border-lmVeryDarkGrayBlue"
                 } ${task.isChecked && "bg-checkGradientBg"}`}
+                onClick={() => handleCheckedStatus(task.id, task.isChecked)}
               >
                 <img
                   src={checkIcon}
@@ -72,7 +57,7 @@ const ListContainer = () => {
             </span>
 
             <button>
-              <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
+              <img src={crossIcon} alt="Check Icon" className="w-[15px]" onClick={() => deleteEvent(task.id)} />
             </button>
           </li>
         ))}
