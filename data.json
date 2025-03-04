@@ -3,7 +3,7 @@
     {
       "id": "4f3b",
       "text": "Open a new bank account",
-      "isChecked": false
+      "isChecked": true
     },
     {
       "id": "0bd7",
@@ -23,6 +23,11 @@
     {
       "id": "3bf2",
       "text": "Check my Mails",
+      "isChecked": false
+    },
+    {
+      "id": "8394",
+      "text": "Make a Cup of Coffee",
       "isChecked": false
     }
   ]

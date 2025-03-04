@@ -11,8 +11,14 @@ const InputBar = ({ addItem }) => {
     }
   };
 
+  const handleClick = async () => {
+    if (text.trim() !== "") {
+      addItem(text).then(() => setText(""));
+    }
+  };
+
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <input
         type="text"
         placeholder="Create a new todo..."
@@ -23,7 +29,12 @@ const InputBar = ({ addItem }) => {
         onChange={(e) => setText(e.target.value)}
         onKeyDown={handleKeyDown}
       />
-      <div className="aspect-square rounded-full w-6"></div>
+      <button
+        onClick={handleClick}
+        className="text-primaryBlue absolute top-[26%] right-[2rem]"
+      >
+        Create
+      </button>
     </div>
   );
 };
