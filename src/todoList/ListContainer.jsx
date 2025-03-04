@@ -16,6 +16,24 @@ const ListContainer = ({
 }) => {
   const { theme } = useContext(ThemeContext);
 
+  const handleReorder = (newOrder) => {
+    setItems((prevList) => {
+      let updatedList = [...prevList];
+
+      const reorderedIDs = newOrder.map((item) => item.id);
+
+      let index = 0;
+      updatedList = updatedList.map((item) => {
+        if (reorderedIDs.includes(item.id)) {
+          return newOrder[index++];
+        }
+        return item;
+      })
+
+      return updatedList;
+    })
+  }
+
   return (
     <div
       className={`${
@@ -27,54 +45,55 @@ const ListContainer = ({
           theme == "light" ? "text-dmVeryDarkGrayBlue" : "text-white"
         } w-full h-fit`}
       >
-        <Reorder.Group values={items} onReorder={setItems}>
+        <Reorder.Group values={items} onReorder={handleReorder}>
           {items.map((task) => (
             <Reorder.Item value={task} key={task.id}>
-            <li
-              className={`flex justify-between items-center border-b px-4 py-4 ${
-                theme == "light"
-                  ? "border-lmVeryLightGray"
-                  : "border-lmVeryDarkGrayBlue"
-              }`}
-            >
-              <span className="flex items-center">
-                <button
-                  className={`aspect-square rounded-full border w-6 mr-4 flex items-center justify-center ${
-                    theme == "light"
-                      ? "border-lmVeryLightGray"
-                      : "border-lmVeryDarkGrayBlue"
-                  } ${task.isChecked && "bg-checkGradientBg"}`}
-                  onClick={() => handleCheckedStatus(task.id, task.isChecked)}
-                >
+              <li
+                className={`flex justify-between items-center border-b px-4 py-4 ${
+                  theme == "light"
+                    ? "border-lmVeryLightGray"
+                    : "border-lmVeryDarkGrayBlue"
+                }`}
+              >
+                <span className="flex items-center">
+                  <button
+                    className={`aspect-square rounded-full border w-6 mr-4 flex items-center justify-center ${
+                      theme == "light"
+                        ? "border-lmVeryLightGray"
+                        : "border-lmVeryDarkGrayBlue"
+                    } ${task.isChecked && "bg-checkGradientBg"}`}
+                    onClick={() => handleCheckedStatus(task.id, task.isChecked)}
+                  >
+                    <img
+                      src={checkIcon}
+                      alt="Check Icon"
+                      className={`w-3 ${!task.isChecked && "hidden"}`}
+                    />
+                  </button>
+
+                  <p
+                    className={`text-sm ${
+                      theme == "light"
+                        ? task.isChecked &&
+                          "text-lmLightGrayBlue decoration-lmLightGrayBlue line-through"
+                        : task.isChecked &&
+                          "text-dmDarkGrayBlue decoration-dmDarkGrayBlue line-through"
+                    }`}
+                  >
+                    {task.text}
+                  </p>
+                </span>
+
+                <button>
                   <img
-                    src={checkIcon}
+                    src={crossIcon}
                     alt="Check Icon"
-                    className={`w-3 ${!task.isChecked && "hidden"}`}
+                    className="w-[15px]"
+                    onClick={() => deleteEvent(task.id)}
                   />
                 </button>
-
-                <p
-                  className={`text-sm ${
-                    theme == "light"
-                      ? task.isChecked &&
-                        "text-lmLightGrayBlue decoration-lmLightGrayBlue line-through"
-                      : task.isChecked &&
-                        "text-dmDarkGrayBlue decoration-dmDarkGrayBlue line-through"
-                  }`}
-                >
-                  {task.text}
-                </p>
-              </span>
-
-              <button>
-                <img
-                  src={crossIcon}
-                  alt="Check Icon"
-                  className="w-[15px]"
-                  onClick={() => deleteEvent(task.id)}
-                />
-              </button>
-            </li></Reorder.Item>
+              </li>
+            </Reorder.Item>
           ))}
         </Reorder.Group>
       </ul>
