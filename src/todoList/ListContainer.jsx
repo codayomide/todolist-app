@@ -28,11 +28,11 @@ const ListContainer = ({
           return newOrder[index++];
         }
         return item;
-      })
+      });
 
       return updatedList;
-    })
-  }
+    });
+  };
 
   return (
     <div

@@ -1,16 +1,6 @@
 {
   "checkList": [
     {
-      "id": "4f3b",
-      "text": "Open a new bank account",
-      "isChecked": true
-    },
-    {
-      "id": "0bd7",
-      "text": "Text Ite",
-      "isChecked": true
-    },
-    {
       "id": "04a1",
       "text": "Write a message to Feyikemi",
       "isChecked": false
@@ -19,11 +9,6 @@
       "id": "4692",
       "text": "Call Kitan",
       "isChecked": false
-    },
-    {
-      "id": "3bf2",
-      "text": "Check my Mails",
-      "isChecked": true
     },
     {
       "id": "8394",
