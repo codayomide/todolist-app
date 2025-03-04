@@ -1,39 +1,29 @@
 {
   "checkList": [
     {
-      "id": "49a3",
-      "text": "Go to the Gym",
-      "isChecked": true
-    },
-    {
-      "id": "7567",
-      "text": "Create a poster",
+      "id": "4f3b",
+      "text": "Open a new bank account",
       "isChecked": false
     },
     {
-      "id": "05c2",
-      "text": "Read my Bible",
+      "id": "0bd7",
+      "text": "Text Ite",
       "isChecked": false
     },
     {
-      "id": "c19e",
-      "text": "Buy a WIFI device",
+      "id": "04a1",
+      "text": "Write a message to Feyikemi",
       "isChecked": false
     },
     {
-      "id": "bef5",
-      "text": "Text my babe",
-      "isChecked": true
-    },
-    {
-      "id": "569b",
-      "text": "Call mummy",
+      "id": "4692",
+      "text": "Call Kitan",
       "isChecked": false
     },
     {
-      "id": "0bf4",
-      "text": "Send Bimbo's Money",
-      "isChecked": true
+      "id": "3bf2",
+      "text": "Check my Mails",
+      "isChecked": false
     }
   ]
 }

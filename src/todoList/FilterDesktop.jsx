@@ -1,10 +1,27 @@
-const FilterDesktop = () => {
+const FilterDesktop = ({ filter, setFilter }) => {
   return (
     <div className="w-[35%] hidden lg:flex justify-center">
       <div className="w-full font-semibold flex justify-between">
-        <button className="text-primaryBlue">All</button>
-        <button>Active</button>
-        <button>Completed</button>
+        <button
+          onClick={() => setFilter("all")}
+          className={`${filter === "all" ? "text-primaryBlue" : ""}`}
+        >
+          All
+        </button>
+
+        <button
+          onClick={() => setFilter("active")}
+          className={`${filter === "active" ? "text-primaryBlue" : ""}`}
+        >
+          Active
+        </button>
+
+        <button
+          onClick={() => setFilter("completed")}
+          className={`${filter === "completed" ? "text-primaryBlue" : ""}`}
+        >
+          Completed
+        </button>
       </div>
     </div>
   );

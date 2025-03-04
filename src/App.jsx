@@ -9,6 +9,13 @@ export default function App() {
   const { theme } = useContext(ThemeContext);
 
   const [checkList, setCheckList] = useState([]);
+  const [filter, setFilter] = useState("all");
+
+  const filteredList = checkList.filter((item) => {
+    if (filter === "completed") return item.isChecked;
+    if (filter === "active") return !item.isChecked;
+    return true;
+  })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,6 +86,20 @@ export default function App() {
     }
   };
 
+  const clearCompleted = async () => {
+    const completedItems = checkList.filter((item) => item.isChecked);
+
+    await Promise.all(
+      completedItems.map((item) => {
+        fetch(`http://localhost:3000/checkList/${item.id}`, {
+          method: "DELETE",
+        })
+      })
+    )
+
+    setCheckList((prevList) => prevList.filter((item) => !item.isChecked));
+  };
+
   return (
     <div
       className={`${
@@ -106,11 +127,14 @@ export default function App() {
       <div className="w-[90%] sm:w-[60%] md:w-[55%] xl:w-[45%] 2xl:w-[35%] flex items-center justify-center relative">
         <main className="bg-transparent w-full h-full flex flex-col items-center relative -top-9">
           <ListContainer
-            items={checkList}
+            items={filteredList}
             deleteEvent={handleDelete}
             handleCheckedStatus={updateStatus}
+            clearCompleted={clearCompleted}
+            filter={filter}
+            setFilter={setFilter}
           />
-          <FilterMobile />
+          <FilterMobile filter={filter} setFilter={setFilter} />
           <p className="text-lmDarkGrayBlue mt-12">
             Drag and drop to reorder list
           </p>

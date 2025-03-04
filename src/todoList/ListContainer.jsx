@@ -4,7 +4,14 @@ import FilterDesktop from "./FilterDesktop";
 import ThemeContext from "../utils/ThemeContext";
 import { useContext } from "react";
 
-const ListContainer = ({ items, deleteEvent, handleCheckedStatus }) => {
+const ListContainer = ({
+  items,
+  deleteEvent,
+  handleCheckedStatus,
+  clearCompleted,
+  filter,
+  setFilter
+}) => {
   const { theme } = useContext(ThemeContext);
 
   return (
@@ -57,16 +64,21 @@ const ListContainer = ({ items, deleteEvent, handleCheckedStatus }) => {
             </span>
 
             <button>
-              <img src={crossIcon} alt="Check Icon" className="w-[15px]" onClick={() => deleteEvent(task.id)} />
+              <img
+                src={crossIcon}
+                alt="Check Icon"
+                className="w-[15px]"
+                onClick={() => deleteEvent(task.id)}
+              />
             </button>
           </li>
         ))}
       </ul>
 
       <div className="text-lmDarkGrayBlue text-sm font-medium flex justify-between px-4 py-5">
-        <p>5 items left</p>
-        <FilterDesktop />
-        <button>Clear Completed</button>
+        <p>{`${items.length} items left`}</p>
+        <FilterDesktop filter={filter} setFilter={setFilter} />
+        <button onClick={clearCompleted}>Clear Completed</button>
       </div>
     </div>
   );
