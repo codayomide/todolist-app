@@ -3,14 +3,16 @@ import checkIcon from "../assets/images/icon-check.svg";
 import FilterDesktop from "./FilterDesktop";
 import ThemeContext from "../utils/ThemeContext";
 import { useContext } from "react";
+import { Reorder } from "framer-motion";
 
 const ListContainer = ({
   items,
+  setItems,
   deleteEvent,
   handleCheckedStatus,
   clearCompleted,
   filter,
-  setFilter
+  setFilter,
 }) => {
   const { theme } = useContext(ThemeContext);
 
@@ -25,54 +27,56 @@ const ListContainer = ({
           theme == "light" ? "text-dmVeryDarkGrayBlue" : "text-white"
         } w-full h-fit`}
       >
-        {items.map((task) => (
-          <li
-            key={task.id}
-            className={`flex justify-between items-center border-b px-4 py-4 ${
-              theme == "light"
-                ? "border-lmVeryLightGray"
-                : "border-lmVeryDarkGrayBlue"
-            }`}
-          >
-            <span className="flex items-center">
-              <button
-                className={`aspect-square rounded-full border w-6 mr-4 flex items-center justify-center ${
-                  theme == "light"
-                    ? "border-lmVeryLightGray"
-                    : "border-lmVeryDarkGrayBlue"
-                } ${task.isChecked && "bg-checkGradientBg"}`}
-                onClick={() => handleCheckedStatus(task.id, task.isChecked)}
-              >
+        <Reorder.Group values={items} onReorder={setItems}>
+          {items.map((task) => (
+            <Reorder.Item value={task} key={task.id}>
+            <li
+              className={`flex justify-between items-center border-b px-4 py-4 ${
+                theme == "light"
+                  ? "border-lmVeryLightGray"
+                  : "border-lmVeryDarkGrayBlue"
+              }`}
+            >
+              <span className="flex items-center">
+                <button
+                  className={`aspect-square rounded-full border w-6 mr-4 flex items-center justify-center ${
+                    theme == "light"
+                      ? "border-lmVeryLightGray"
+                      : "border-lmVeryDarkGrayBlue"
+                  } ${task.isChecked && "bg-checkGradientBg"}`}
+                  onClick={() => handleCheckedStatus(task.id, task.isChecked)}
+                >
+                  <img
+                    src={checkIcon}
+                    alt="Check Icon"
+                    className={`w-3 ${!task.isChecked && "hidden"}`}
+                  />
+                </button>
+
+                <p
+                  className={`text-sm ${
+                    theme == "light"
+                      ? task.isChecked &&
+                        "text-lmLightGrayBlue decoration-lmLightGrayBlue line-through"
+                      : task.isChecked &&
+                        "text-dmDarkGrayBlue decoration-dmDarkGrayBlue line-through"
+                  }`}
+                >
+                  {task.text}
+                </p>
+              </span>
+
+              <button>
                 <img
-                  src={checkIcon}
+                  src={crossIcon}
                   alt="Check Icon"
-                  className={`w-3 ${!task.isChecked && "hidden"}`}
+                  className="w-[15px]"
+                  onClick={() => deleteEvent(task.id)}
                 />
               </button>
-
-              <p
-                className={`text-sm ${
-                  theme == "light"
-                    ? task.isChecked &&
-                      "text-lmLightGrayBlue decoration-lmLightGrayBlue line-through"
-                    : task.isChecked &&
-                      "text-dmDarkGrayBlue decoration-dmDarkGrayBlue line-through"
-                }`}
-              >
-                {task.text}
-              </p>
-            </span>
-
-            <button>
-              <img
-                src={crossIcon}
-                alt="Check Icon"
-                className="w-[15px]"
-                onClick={() => deleteEvent(task.id)}
-              />
-            </button>
-          </li>
-        ))}
+            </li></Reorder.Item>
+          ))}
+        </Reorder.Group>
       </ul>
 
       <div className="text-lmDarkGrayBlue text-sm font-medium flex justify-between px-4 py-5">

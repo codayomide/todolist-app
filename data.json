@@ -8,7 +8,7 @@
     {
       "id": "0bd7",
       "text": "Text Ite",
-      "isChecked": false
+      "isChecked": true
     },
     {
       "id": "04a1",
@@ -23,12 +23,12 @@
     {
       "id": "3bf2",
       "text": "Check my Mails",
-      "isChecked": false
+      "isChecked": true
     },
     {
       "id": "8394",
       "text": "Make a Cup of Coffee",
-      "isChecked": false
+      "isChecked": true
     }
   ]
 }

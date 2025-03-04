@@ -128,6 +128,7 @@ export default function App() {
         <main className="bg-transparent w-full h-full flex flex-col items-center relative -top-9">
           <ListContainer
             items={filteredList}
+            setItems={setCheckList}
             deleteEvent={handleDelete}
             handleCheckedStatus={updateStatus}
             clearCompleted={clearCompleted}
