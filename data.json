@@ -1,18 +1,13 @@
 {
   "checkList": [
     {
-      "id": "04a1",
-      "text": "Write a message to Feyikemi",
+      "id": "e2b9",
+      "text": "Buy a Journal",
       "isChecked": false
     },
     {
-      "id": "4692",
-      "text": "Call Kitan",
-      "isChecked": false
-    },
-    {
-      "id": "8394",
-      "text": "Make a Cup of Coffee",
+      "id": "dd19",
+      "text": "Buy water",
       "isChecked": false
     }
   ]

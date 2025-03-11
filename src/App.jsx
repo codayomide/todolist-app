@@ -15,15 +15,22 @@ export default function App() {
     if (filter === "completed") return item.isChecked;
     if (filter === "active") return !item.isChecked;
     return true;
-  })
+  });
 
   useEffect(() => {
+    const savedList = localStorage.getItem("checkList");
+
+    if (savedList) {
+      setCheckList(JSON.parse(savedList));
+    }
+
     const fetchData = async () => {
       try {
         await fetch(`http://localhost:3000/checkList`)
           .then((res) => res.json())
           .then((data) => {
             setCheckList(data.reverse());
+            localStorage.setItem("checkList", JSON.stringify(data.reverse()));
           });
       } catch (err) {
         console.log(err);
@@ -93,9 +100,9 @@ export default function App() {
       completedItems.map((item) => {
         fetch(`http://localhost:3000/checkList/${item.id}`, {
           method: "DELETE",
-        })
+        });
       })
-    )
+    );
 
     setCheckList((prevList) => prevList.filter((item) => !item.isChecked));
   };
