@@ -26,6 +26,7 @@ export default {
         "imgBgMobileDark": "url('./src/assets/images/bg-mobile-dark.jpg')",
         "imgBgDesktopLight": "url('./src/assets/images/bg-desktop-light.jpg')",
         "imgBgDesktopDark": "url('./src/assets/images/bg-desktop-dark.jpg')",
+        "checkGradientBg": "linear-gradient(90deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",
       }
     },
   },

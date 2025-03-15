@@ -1,104 +1,64 @@
-import crossIcon from "../assets/images/icon-cross.svg";
-import checkIcon from "../assets/images/icon-check.svg";
+import FilterDesktop from "./FilterDesktop";
+import ThemeContext from "../utils/ThemeContext";
+import { useContext } from "react";
+import TaskList from "./TaskList";
 
-const ListContainer = () => {
+const ListContainer = ({
+  items,
+  setItems,
+  deleteEvent,
+  handleCheckedStatus,
+  clearCompleted,
+  filter,
+  setFilter,
+}) => {
+  const { theme } = useContext(ThemeContext);
+
+  const handleReorder = (newOrder) => {
+    setItems((prevList) => {
+      let updatedList = [...prevList];
+
+      const reorderedIDs = newOrder.map((item) => item.id);
+
+      let index = 0;
+      updatedList = updatedList.map((item) => {
+        if (reorderedIDs.includes(item.id)) {
+          return newOrder[index++];
+        }
+        return item;
+      });
+
+      return updatedList;
+    });
+  };
+
   return (
-    <div className="w-full bg-white shadow-xl rounded-md mb-6">
-      <ul className="w-full h-fit">
-        <li className="flex justify-between items-center border-b border-lmLightGrayBlue px-4 py-4">
-          <span className="flex items-center">
-            <button className="aspect-square rounded-full border-lmLightGrayBlue border w-6 mr-4 flex items-center justify-center">
-              <img src={checkIcon} alt="Check Icon" className="w-3" />
-            </button>
-            <p className="text-sm text-dmVeryDarkGrayBlue">
-              Complete online JavaScript course
-            </p>
-          </span>
-
-          <button>
-            <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
-          </button>
-        </li>
-
-        <li className="flex justify-between items-center border-b border-lmLightGrayBlue px-4 py-4">
-          <span className="flex items-center">
-            <button className="aspect-square rounded-full border-lmLightGrayBlue border w-6 mr-4 flex items-center justify-center">
-              <img src={checkIcon} alt="Check Icon" className="w-3" />
-            </button>
-            <p className="text-sm decoration-lmLightGrayBlue line-through text-lmLightGrayBlue">
-              Complete online JavaScript course
-            </p>
-          </span>
-
-          <button>
-            <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
-          </button>
-        </li>
-
-        <li className="flex justify-between items-center border-b border-lmLightGrayBlue px-4 py-4">
-          <span className="flex items-center">
-            <button className="aspect-square rounded-full border-lmLightGrayBlue border w-6 mr-4 flex items-center justify-center">
-              <img src={checkIcon} alt="Check Icon" className="w-3" />
-            </button>
-            <p className="text-sm text-dmVeryDarkGrayBlue">
-              Complete online JavaScript course
-            </p>
-          </span>
-
-          <button>
-            <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
-          </button>
-        </li>
-
-        <li className="flex justify-between items-center border-b border-lmLightGrayBlue px-4 py-4">
-          <span className="flex items-center">
-            <button className="aspect-square rounded-full border-lmLightGrayBlue border w-6 mr-4 flex items-center justify-center">
-              <img src={checkIcon} alt="Check Icon" className="w-3" />
-            </button>
-            <p className="text-sm text-dmVeryDarkGrayBlue">
-              Complete online JavaScript course
-            </p>
-          </span>
-
-          <button>
-            <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
-          </button>
-        </li>
-
-        <li className="flex justify-between items-center border-b border-lmLightGrayBlue px-4 py-4">
-          <span className="flex items-center">
-            <button className="aspect-square rounded-full border-lmLightGrayBlue border w-6 mr-4 flex items-center justify-center">
-              <img src={checkIcon} alt="Check Icon" className="w-3" />
-            </button>
-            <p className="text-sm text-dmVeryDarkGrayBlue">
-              Complete online JavaScript course
-            </p>
-          </span>
-
-          <button>
-            <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
-          </button>
-        </li>
-
-        <li className="flex justify-between items-center border-b border-lmLightGrayBlue px-4 py-4">
-          <span className="flex items-center">
-            <button className="aspect-square rounded-full border-lmLightGrayBlue border w-6 mr-4 flex items-center justify-center">
-              <img src={checkIcon} alt="Check Icon" className="w-3" />
-            </button>
-            <p className="text-sm text-dmVeryDarkGrayBlue">
-              Complete online JavaScript course
-            </p>
-          </span>
-
-          <button>
-            <img src={crossIcon} alt="Check Icon" className="w-[15px]" />
-          </button>
-        </li>
+    <div
+      className={`${
+        theme == "light" ? "bg-white" : "bg-dmDarkDesBlue"
+      } w-full shadow-xl rounded-md mb-6 lg:mb-2`}
+    >
+      <ul
+        className={`${
+          theme == "light" ? "text-dmVeryDarkGrayBlue" : "text-white"
+        } w-full h-fit`}
+      >
+        {items.length == 0 ? (
+          <div className="w-full h-full text-center my-4">No Items Here!</div>
+        ) : (
+          <TaskList
+            items={items}
+            handleReorder={handleReorder}
+            handleCheckedStatus={handleCheckedStatus}
+            deleteEvent={deleteEvent}
+          />
+        )}
       </ul>
 
-      <div className="text-lmDarkGrayBlue text-sm flex justify-between px-4 py-5">
-        <p>5 items left</p>
-        <button>Clear Completed</button>
+      <div className="text-lmDarkGrayBlue text-sm font-medium flex justify-between px-4 py-5">
+        <p>{`${items.length} ${items.length == 1 ? "item" : "items"} left`}</p>
+        <FilterDesktop filter={filter} setFilter={setFilter} />
+        <button onClick={clearCompleted}>Clear Completed</button>
       </div>
     </div>
   );

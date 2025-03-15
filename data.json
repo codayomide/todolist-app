@@ -1,0 +1,14 @@
+{
+  "checkList": [
+    {
+      "id": "e2b9",
+      "text": "Buy a Journal",
+      "isChecked": false
+    },
+    {
+      "id": "dd19",
+      "text": "Buy water",
+      "isChecked": false
+    }
+  ]
+}
