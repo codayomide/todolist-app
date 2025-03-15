@@ -42,6 +42,12 @@ export default function App() {
   const addItem = async (text) => {
     const newItem = { text, isChecked: false };
 
+    setCheckList((prevTasks) => {
+      const updatedTasks = [...prevTasks, newItem];
+      localStorage.setItem("checkList", JSON.stringify(updatedTasks));
+      return updatedTasks;
+    });
+
     try {
       const response = await fetch("http://localhost:3000/checkList", {
         method: "POST",
@@ -49,31 +55,52 @@ export default function App() {
         body: JSON.stringify(newItem),
       });
 
-      if (response.ok) {
-        const updatedResponse = await fetch("http://localhost:3000/checkList");
-        const updatedData = await updatedResponse.json();
-        setCheckList(updatedData.reverse());
-      } else {
-        console.error("Failed to add item");
+      if (!response.ok) {
+        throw new Error("API Down");
       }
+
+      console.log("Task synced with API");
+
+      // if (response.ok) {
+      //   const updatedResponse = await fetch("http://localhost:3000/checkList");
+      //   const updatedData = await updatedResponse.json();
+      //   setCheckList(updatedData.reverse());
+      // } else {
+      //   console.error("API down");
+      // }
     } catch (error) {
       console.log("Error adding item: ", error);
+
+      // Maybe add an unsynced tasks function
     }
   };
 
   const handleDelete = async (id) => {
+    const savedList = JSON.parse(localStorage.getItem("checkList"));
+
+    if (savedList) {
+      const updatedTasks = savedList.filter((task) => task.id !== id);
+      setCheckList(updatedTasks);
+      localStorage.setItem("checkList", JSON.stringify(updatedTasks));
+    }
+
     try {
       await fetch(`http://localhost:3000/checkList/${id}`, {
         method: "DELETE",
       });
-
-      setCheckList((prevList) => prevList.filter((item) => item.id !== id));
     } catch (error) {
       console.log("Error deleting item: ", error);
     }
   };
 
   const updateStatus = async (id, isChecked) => {
+    const savedList = JSON.parse(localStorage.getItem("checkList"));
+    const updatedTasks = savedList.map((task) =>
+      task.id === id ? { ...task, isChecked: !isChecked } : task
+    );
+    setCheckList(updatedTasks);
+    localStorage.setItem("checkList", JSON.stringify(updatedTasks));
+
     try {
       const response = await fetch(`http://localhost:3000/checkList/${id}`, {
         method: "PATCH",
@@ -81,12 +108,13 @@ export default function App() {
         body: JSON.stringify({ isChecked: !isChecked }),
       });
 
-      if (response.ok) {
-        setCheckList((prevList) =>
-          prevList.map((item) =>
-            item.id === id ? { ...item, isChecked: !isChecked } : item
-          )
-        );
+      if (!response.ok) {
+        throw new Error("API Down");
+        // setCheckList((prevList) =>
+        //   prevList.map((item) =>
+        //     item.id === id ? { ...item, isChecked: !isChecked } : item
+        //   )
+        // );
       }
     } catch (error) {
       console.log("Error updating item: ", error);
@@ -94,7 +122,12 @@ export default function App() {
   };
 
   const clearCompleted = async () => {
-    const completedItems = checkList.filter((item) => item.isChecked);
+    const savedList = JSON.parse(localStorage.getItem("checkList"));
+    const completedItems = savedList.filter((item) => item.isChecked);
+    const remainingItems = savedList.filter((item) => !item.isChecked);
+
+    setCheckList(remainingItems);
+    localStorage.setItem("checkList", JSON.stringify(remainingItems));
 
     await Promise.all(
       completedItems.map((item) => {
@@ -104,7 +137,7 @@ export default function App() {
       })
     );
 
-    setCheckList((prevList) => prevList.filter((item) => !item.isChecked));
+    // setCheckList((prevList) => prevList.filter((item) => !item.isChecked));
   };
 
   return (
