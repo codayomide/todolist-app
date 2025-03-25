@@ -40,7 +40,7 @@ export default function App() {
   }, []);
 
   const addItem = async (text) => {
-    const newItem = { text, isChecked: false };
+    const newItem = { id: Date.now(), text, isChecked: false };
 
     setCheckList((prevTasks) => {
       const updatedTasks = [...prevTasks, newItem];
