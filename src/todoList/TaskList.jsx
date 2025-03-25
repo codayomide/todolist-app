@@ -3,11 +3,20 @@ import ThemeContext from "../utils/ThemeContext";
 import crossIcon from "../assets/images/icon-cross.svg";
 import checkIcon from "../assets/images/icon-check.svg";
 
-const TaskList = ({items, handleReorder, handleCheckedStatus, deleteEvent}) => {
-  const theme = {ThemeContext}
+const TaskList = ({
+  items,
+  handleReorder,
+  handleCheckedStatus,
+  deleteEvent,
+}) => {
+  const theme = { ThemeContext };
   return (
     <>
-      <Reorder.Group values={items} onReorder={handleReorder}>
+      <Reorder.Group
+        axis="y"
+        values={items}
+        onReorder={(newOrder) => handleReorder(newOrder)}
+      >
         {items.map((task) => (
           <Reorder.Item value={task} key={task.id}>
             <li
