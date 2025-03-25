@@ -15,21 +15,10 @@ const ListContainer = ({
   const { theme } = useContext(ThemeContext);
 
   const handleReorder = (newOrder) => {
-    setItems((prevList) => {
-      let updatedList = [...prevList];
+    console.log("New Order Received:", newOrder);
+    setItems(newOrder);
 
-      const reorderedIDs = newOrder.map((item) => item.id);
-
-      let index = 0;
-      updatedList = updatedList.map((item) => {
-        if (reorderedIDs.includes(item.id)) {
-          return newOrder[index++];
-        }
-        return item;
-      });
-
-      return updatedList;
-    });
+    localStorage.setItem("checkList", JSON.stringify(newOrder));
   };
 
   return (

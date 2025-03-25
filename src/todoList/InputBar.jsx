@@ -7,13 +7,15 @@ const InputBar = ({ addItem }) => {
 
   const handleKeyDown = async (event) => {
     if (event.key === "Enter" && text.trim() !== "") {
-      addItem(text).then(() => setText(""));
+      setText("");
+      addItem(text);
     }
   };
 
   const handleClick = async () => {
     if (text.trim() !== "") {
-      addItem(text).then(() => setText(""));
+      setText("");
+      addItem(text);
     }
   };
 
