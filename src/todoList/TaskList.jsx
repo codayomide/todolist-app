@@ -20,7 +20,7 @@ const TaskList = ({
         {items.map((task) => (
           <Reorder.Item value={task} key={task.id}>
             <li
-              className={`flex justify-between items-center border-b px-4 py-4 ${
+              className={`bg-white flex justify-between items-center border-b px-4 py-4 ${
                 theme == "light"
                   ? "border-lmVeryLightGray"
                   : "border-lmVeryDarkGrayBlue"
